@@ -1,10 +1,10 @@
-led_verte = pyb.Pin( 'X1', pyb.Pin.OUT_PP)
-led_bleu = pyb.Pin( 'X2', pyb.Pin.OUT_PP)
+from pyb import Timer, Pin
+
+timmer = Timer(5, freq=500)
+channel = timmer.channel(3, Timer.PWM, pin=Pin('X1'), pulse_width_percent=100)
 
 while True:
-    led_verte.high()
-    led_bleu.low()
-    pyb.delay(150)
-    led_verte.low()
-    led_bleu.high()
-    pyb.delay(150)
+    for i in range (100):
+        channel.pulse_width_percent(i)
+        pyb.delay(50)
+        
