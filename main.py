@@ -1,10 +1,13 @@
 from pyb import Timer, Pin
 
-timmer = Timer(5, freq=500)
+pot = pyb.ADC('X20')
+timmer = pyb.Timer(5, freq=500)
 channel = timmer.channel(3, Timer.PWM, pin=Pin('X1'), pulse_width_percent=100)
 
+
 while True:
-    for i in range (100):
-        channel.pulse_width_percent(i)
-        pyb.delay(50)
-        
+    val_pot=pot.read()
+    val_pot=(val_pot/4095)*100
+    print("val : ",val_pot)
+    channel.pulse_width_percent(val_pot)
+    pyb.delay(200)
